@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOption } from 'db/dataSource';
 import { CurrentUserMiddleware } from './middlewares/current_usre.middleware';
 import { MarkModule } from './modules/mark/mark.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { MarkModule } from './modules/mark/mark.module';
     ,LessonModule
     ,QuestionModule
     ,AnswerModule
-    ,ReferanceModule, MarkModule
+    ,ReferanceModule, MarkModule, CloudinaryModule
   ],
   controllers: [],
   providers: [],
@@ -30,7 +31,8 @@ export class AppModule {
     consumer.apply(CurrentUserMiddleware)
     .exclude(
       'user/singup'
-      ,'user/login'
+      ,'user/login',
+      'image/upload'
     )
     .forRoutes({path:'*',method:RequestMethod.ALL})
   }
