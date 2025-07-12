@@ -18,9 +18,9 @@ export class ReferanceController {
   @AuthorizeRoles(roles.TEACHER,roles.ADMIN)
   @UseGuards(AuthorizeGuard)
   @Post()
-  async create(@Body() createReferanceDto: CreateReferanceDto,@CurrentUser() userId) {
-    console.log(userId)
-    return this.referanceService.create(createReferanceDto,userId);
+  async create(@Body() createReferanceDto: CreateReferanceDto,@CurrentUser() user) {
+    console.log("rrrrr",user.userId)
+    return this.referanceService.create(createReferanceDto,user.userId);
   }
 
   @Get()
@@ -32,12 +32,14 @@ export class ReferanceController {
   findOne(@Param('id') id: number) {
     return this.referanceService.findOneById(+id);
   }
-
+@AuthorizeRoles(roles.TEACHER,roles.ADMIN)
+  @UseGuards(AuthorizeGuard)
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateReferanceDto: UpdateReferanceDto) {
     return this.referanceService.update(id, updateReferanceDto);
   }
-
+@AuthorizeRoles(roles.TEACHER,roles.ADMIN)
+  @UseGuards(AuthorizeGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.referanceService.remove(+id);

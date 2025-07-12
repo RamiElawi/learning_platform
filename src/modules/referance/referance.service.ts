@@ -31,7 +31,7 @@ export class ReferanceService {
 
   async update(id: number, updateReferanceDto: UpdateReferanceDto) {
     await this.findOneById(id)
-    return await this.refRepo.updateReferance(id,UpdateReferanceDto)
+    return await this.refRepo.updateReferance(id,updateReferanceDto)
   }
 
   async remove(id: number) {
