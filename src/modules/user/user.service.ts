@@ -42,8 +42,8 @@ export class UserService {
     }
   
   
-    async findAll(limit?:number,skip?:number,gender?:gender,age?:number,address?:string):Promise<User[]>{
-      return  await this.userRepo.getUsers(limit,skip,gender,age,address) 
+    async findAll(limit?:number,skip?:number):Promise<User[]>{
+      return  await this.userRepo.getUsers(limit,skip) 
     }
   
     async findOne(userId: number):Promise<User> {
@@ -107,5 +107,6 @@ export class UserService {
       access_token: at,
     };
   }
+
     
 }

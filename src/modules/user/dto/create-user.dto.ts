@@ -6,10 +6,15 @@ import { roles } from "../../../common/enums/user_role.enum";
 
 export class CreateUserDto {
     @IsNotEmpty()
-    @IsString({message:'name should be string'})
+    @IsString({message:'first name should be string'})
     @Length(3,30,{message:'you should enter name between 3 and 30'})
     @ApiProperty({example:'rami'})
-    name:string;
+    firstName:string;
+    @IsNotEmpty()
+    @IsString({message:'last name should be string'})
+    @Length(3,30,{message:'you should enter name between 3 and 30'})
+    @ApiProperty({example:'elawi'})
+    lastName:string;
     
     //email
     @ApiProperty({example:'rami1@gmail.com'})

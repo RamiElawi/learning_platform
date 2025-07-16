@@ -2,6 +2,7 @@ import { Class } from "src/modules/class/entities/class.entity";
 import { Lesson } from "src/modules/lesson/entities/lesson.entity";
 import { Mark } from "src/modules/mark/entities/mark.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UserSubject } from "./user_subject.entity";
 
 @Entity('subject')
 export class Subject {
@@ -21,7 +22,9 @@ export class Subject {
     @OneToMany(()=>Lesson,lesson=>lesson.subject,{eager:true})
     lessons:Lesson[];
 
-    @OneToMany(()=>Mark,mark=>mark.subject,{onDelete:'CASCADE',onUpdate:'CASCADE'})
-    marks:Mark[]
+    @OneToMany(()=>UserSubject,userSubject=>userSubject.subject,{eager:true})
+    userSubject:UserSubject[]
+
+    
     
 }

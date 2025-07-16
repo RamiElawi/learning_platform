@@ -10,15 +10,15 @@ export class Answer {
     answer:string;
 
 
-    @ManyToOne(()=>Question,question=>question.answers,{eager:true})
+    @ManyToOne(()=>Question,question=>question.answers,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     question:Question
     @Column()
     questionId:number
 
-    @OneToMany(()=>User_Answer,uanswer=>uanswer.answer,{onDelete:'CASCADE',onUpdate:'CASCADE'})
+    @OneToMany(()=>User_Answer,uanswer=>uanswer.answer)
     uanswer:User_Answer[]
 
-    @OneToOne(()=>Question,question=>question,{eager:true})
+    @OneToOne(()=>Question,question=>question,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     question1:Question
     
 

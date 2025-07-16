@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Question } from './entities/question.entity';
 import { QuestionRepository } from './questino.repository';
 import { AnswerModule } from '../answer/answer.module';
+import { MarkModule } from '../mark/mark.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Question]),AnswerModule],
+  imports:[TypeOrmModule.forFeature([Question]),AnswerModule,MarkModule],
   controllers: [QuestionController],
   providers: [QuestionService,QuestionRepository],
 })

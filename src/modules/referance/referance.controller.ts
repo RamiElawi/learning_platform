@@ -17,14 +17,15 @@ export class ReferanceController {
 
   @AuthorizeRoles(roles.TEACHER,roles.ADMIN)
   @UseGuards(AuthorizeGuard)
-  @Post()
+  @Post('/addReferance')
   async create(@Body() createReferanceDto: CreateReferanceDto,@CurrentUser() user) {
     console.log("rrrrr",user.userId)
     return this.referanceService.create(createReferanceDto,user.userId);
   }
 
-  @Get()
-  findAll(filterReferanceDto:FilterReferanceDto) {
+  @Get('/getAllReferance/:limit/:skip')
+  findAll(@Param('limit') limit:number,@Param('skip') skip:number) {
+    const filterReferanceDto:FilterReferanceDto={limit,skip}
     return this.referanceService.findAll(filterReferanceDto);
   }
 
@@ -32,6 +33,13 @@ export class ReferanceController {
   findOne(@Param('id') id: number) {
     return this.referanceService.findOneById(+id);
   }
+
+  @Get('/findByName/:name')
+  async findByName(@Param('name') name:string){
+    return await this.referanceService.findOneByName(name)
+  }
+
+
 @AuthorizeRoles(roles.TEACHER,roles.ADMIN)
   @UseGuards(AuthorizeGuard)
   @Patch(':id')

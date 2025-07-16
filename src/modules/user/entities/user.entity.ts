@@ -5,6 +5,7 @@ import { User_Answer } from "src/modules/answer/entities/user_answer.entity";
 import { Class } from "src/modules/class/entities/class.entity";
 import { Mark } from "src/modules/mark/entities/mark.entity";
 import { Referance } from "src/modules/referance/entities/referance.entity";
+import { UserSubject } from "src/modules/subject/entities/user_subject.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('user')
@@ -13,8 +14,10 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } 
 export class User {
     @PrimaryGeneratedColumn()
     id:number;
-    @Column()
-    name:string;
+    @Column({nullable:true})
+    firstName:string;
+    @Column({nullable:true})
+    lastName:string;
     @Column()
     email:string;
     @Column({select:false})
@@ -40,14 +43,17 @@ export class User {
     @Column({nullable:true})
     classId:number
 
-    @OneToMany(()=>Mark,mark=>mark.user,{onDelete:'CASCADE',onUpdate:'CASCADE'})
+    @OneToMany(()=>Mark,mark=>mark.user,{eager:true})
     marks:Mark[]
 
+    @OneToMany(()=>UserSubject,userSubject=>userSubject.user,{eager:true})
+    userSubject:UserSubject[]
+
     
-    @OneToMany(()=>Referance,ref=>ref.user,{onDelete:'CASCADE',onUpdate:'CASCADE'})
+    @OneToMany(()=>Referance,ref=>ref.user,{eager:true})
     referances:Referance[]
 
-    @OneToMany(()=>User_Answer,uanswer=>uanswer.user,{onDelete:'CASCADE',onUpdate:'CASCADE'})
+    @OneToMany(()=>User_Answer,uanswer=>uanswer.user,{eager:true})
     uanswer:User_Answer[]
 
 

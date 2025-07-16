@@ -38,6 +38,13 @@ export class UserController {
 
   @UseGuards(AuthorizeGuard)
   @AuthorizeRoles(roles.ADMIN)
+  @Get('/getAlluser/:limit/:skip')
+  async getAllUser(@Param('limit') limit:number,@Param('skip') skip:number){
+    return await this.userSrevice.findAll(limit,skip)
+  }
+
+  @UseGuards(AuthorizeGuard)
+  @AuthorizeRoles(roles.ADMIN)
   @Patch('/changeRole')
   async changeRole(@Body() changeRoleDto:ChangeRole){
     return await this.userSrevice.update(changeRoleDto.userId,{role:changeRoleDto.role})

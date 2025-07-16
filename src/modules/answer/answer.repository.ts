@@ -16,11 +16,11 @@ export class AnswerRepository extends Repository<Answer>{
        .execute()
     }
 
-    async updateAnswer(answerId:number,updateAnswerDto:UpdateAnswerDto){
+    async updateAnswer(answerId:number,answer){
         return await dataSource
         .createQueryBuilder()
         .update(Answer)
-        .set({...updateAnswerDto})
+        .set({...answer})
         .where('id = :answerId',{answerId:answerId})
         .execute()
     }

@@ -9,11 +9,11 @@ export class User_Answer {
 
 
 
-    @ManyToOne(()=>User,user=>user.uanswer,{eager:true})
+    @ManyToOne(()=>User,user=>user.uanswer,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     user:User
     @Column()
     userId:number
-    @ManyToOne(()=>Answer,answer=>answer.uanswer,{eager:true})
+    @ManyToOne(()=>Answer,answer=>answer.uanswer,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     answer:Answer
     @Column()
     answerId:number

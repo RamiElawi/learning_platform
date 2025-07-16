@@ -16,9 +16,9 @@ export class Question {
     mark:number
 
 
-    @OneToMany(()=>Answer,answer=>answer.question,{onDelete:'CASCADE',onUpdate:'CASCADE'})
+    @OneToMany(()=>Answer,answer=>answer.question,{eager:true})
     answers:Answer[]
-    @OneToOne(()=>Answer,answer=>answer.question1,{onDelete:'CASCADE',onUpdate:'CASCADE'})
+    @OneToOne(()=>Answer,answer=>answer.question1,{eager:true})
     answer:Answer;
     @Column({nullable:true})
     rightAnswer:number

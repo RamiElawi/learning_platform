@@ -36,22 +36,14 @@ export class UserRepository extends Repository<User>{
         .getOne()
     }
 
-    async getUsers(limit?:number,skip?:number,gender?:gender,age?:number,address?:string):Promise<User[]>{
+    async getUsers(limit?:number,skip?:number):Promise<User[]>{
         const query = await dataSource
         .getRepository(User)
         .createQueryBuilder('users')
-        if(gender)
-            query.where('users.gender = :gendre',{gender})
-        if(age)
-            query.andWhere('users.age = :age',{age})
-        if(address)
-            query.andWhere("users.address LIKE :address",{address})
-            
         
         return query
         .limit(limit)
         .offset(skip)
-        .orderBy('ASC')
         .getMany()
 
 

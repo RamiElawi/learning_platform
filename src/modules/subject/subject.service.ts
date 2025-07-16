@@ -6,11 +6,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { SubjectRepository } from './subject.repository';
 import { Repository } from 'typeorm';
 import { Subject } from './entities/subject.entity';
+import { UserSubjectRepository } from './user_subject.repository';
+import { roles } from 'src/common/enums/user_role.enum';
 
 @Injectable()
 export class SubjectService {
 
-  constructor(@InjectRepository(SubjectRepository) private readonly subRepo:SubjectRepository){}
+  constructor(
+    @InjectRepository(SubjectRepository) private readonly subRepo:SubjectRepository
+  ,@InjectRepository(UserSubjectRepository) private readonly userSubRepo:UserSubjectRepository
+  ){}
 
   async create(createSubjectDto: CreateSubjectDto,classId:number) {
     await this.findAlreadySubject(classId,createSubjectDto.name)
@@ -43,4 +48,21 @@ export class SubjectService {
     await this.findOne(id)
     return await this.subRepo.deleteSubject(id)
   }
+
+  async addUserToSubject(userId:number,subjectId:number){
+    return await this.userSubRepo.createUserSubject(userId,subjectId)
+  }
+
+  async deleteUserFromSubject(userId:number,subjectId:number){
+    return await this.userSubRepo.deleteUserSubject(userId,subjectId)
+  }
+
+  async getUserFromSubject(subjectId:number){
+    return await this.userSubRepo.getUsersForSubject(subjectId)
+  }
+
+  async getUserSubject(userId:number,subjectId:number){
+    return await this.userSubRepo.getUserSubject(userId,subjectId)
+  }
+  
 }

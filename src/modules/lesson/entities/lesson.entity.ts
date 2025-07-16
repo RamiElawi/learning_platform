@@ -10,11 +10,12 @@ export class Lesson {
     name:string;
     @Column()
     url:string;
-    @Column()
+    @Column({nullable:true})
     rate:string;
     @Column()
     description:string;
-    
+    @Column({nullable:true})
+    lessonNumber:number;    
 
     @ManyToOne(()=>Subject,sub=>sub.lessons,{onDelete:'CASCADE',onUpdate:'CASCADE'})
     subject:Subject

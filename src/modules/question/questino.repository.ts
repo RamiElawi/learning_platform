@@ -41,6 +41,7 @@ export class QuestionRepository extends Repository<Question>{
         .createQueryBuilder('question')
         .where('question.questionableId = :questionableId',{questionableId:questionableId})
         .andWhere('question.questionableType = :questionableType',{questionableType:questionableType})
+        .leftJoinAndSelect('question.answers','answers')
         .getMany()
     }
 
@@ -49,6 +50,19 @@ export class QuestionRepository extends Repository<Question>{
         .getRepository(Question)
         .createQueryBuilder('question')
         .where('question.id = :questionId',{questionId:questionId})
+        .leftJoinAndSelect('question.answers','answers')
         .getOne()
+    }
+
+    async getUserAnswer(userId:number,questionId:number,questionType:questionType){
+        return await dataSource
+        .getRepository(Question)
+        .createQueryBuilder('question')
+        .leftJoinAndSelect('question.answers','answer')
+        .where('question.questionableId = :questionId',{questionId:questionId})
+        .andWhere('question.questionableType = :questionType',{questionType:questionType})
+        .leftJoinAndSelect('answer.uanswer','userAnswer')
+        .andWhere('userAnswer.userId = :userId',{userId:userId})
+        .getMany()
     }
 }

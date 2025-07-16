@@ -7,6 +7,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthorizeGuard } from 'src/common/guard/user_auth.guard';
 import { AuthorizeRoles } from 'src/common/decorator/authorize_role.decorator';
 import { roles } from 'src/common/enums/user_role.enum';
+import { UserSubjectDto } from './dto/createUserToSubject.dto';
+import { CurrentUser } from 'src/common/decorator/currentUser.decorator';
 
 @ApiBearerAuth('accessToken')
 @ApiTags('subject')
@@ -27,9 +29,9 @@ export class SubjectController {
   }
 
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.subjectService.findOne(+id);
+  @Get('/getsubject/:id')
+  async findOne(@Param('id') id: number) {
+    return await this.subjectService.findOne(id);
   }
 
   @AuthorizeRoles(roles.ADMIN)
@@ -45,4 +47,26 @@ export class SubjectController {
   remove(@Param('id') id: string) {
     return this.subjectService.remove(+id);
   }
+
+  @AuthorizeRoles(roles.ADMIN)
+  @UseGuards(AuthorizeGuard)
+  @Post('/addUserToSubject')
+  async addUsertoSubject(@Body() userSubjectDto:UserSubjectDto){
+    return await this.subjectService.addUserToSubject(userSubjectDto.userId,userSubjectDto.subjectId)
+  }
+
+  @AuthorizeRoles(roles.ADMIN)
+  @UseGuards(AuthorizeGuard)
+  @Delete('/deleteUserFromSubject')
+  async deleteUserFromSubject(@Body()userSubjectDto:UserSubjectDto){
+    return await this.subjectService.deleteUserFromSubject(userSubjectDto.userId,userSubjectDto.subjectId)
+  }
+
+  @AuthorizeRoles(roles.ADMIN)
+  @UseGuards(AuthorizeGuard)
+  @Get('/getUserSubject/:subjectId')
+  async getUserSubject(@Param('subjectId') subjectId:number){
+    return await this.subjectService.getUserFromSubject(subjectId)
+  }
+
 }

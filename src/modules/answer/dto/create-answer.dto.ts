@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateAnswerDto {
-    @ApiProperty()
+    @ApiProperty({example:['one','two','three']})
     answer:string[];
-    @ApiProperty()
+    @ApiProperty({example:'foure'})
     rightAnswer:string;
 }

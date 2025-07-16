@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import dataSource from "db/dataSource";
 import { CreateClassDto } from "./dto/create-class.dto";
 import { UpdateClassDto } from "./dto/update-class.dto";
+import { User } from "../user/entities/user.entity";
 
 @EntityRepository(Class)
 export class ClassRepository extends Repository<Class>{
@@ -20,6 +21,8 @@ export class ClassRepository extends Repository<Class>{
         return await dataSource
         .getRepository(Class)
         .createQueryBuilder('class')
+          .leftJoinAndSelect('class.users','users')
+          .leftJoinAndSelect('class.subjects','subjects')
         .where('class.id = :classId',{classId:classId})
         .getOne()
     }

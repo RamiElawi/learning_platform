@@ -29,10 +29,10 @@ export class CurrentUserMiddleware implements NestMiddleware{
         } 
         try{
             const token= authHeader.split(' ')[1]
-            const {email,userId,role,refreshToken}=<JwtPayload>verify(token,process.env.SECRET_KEY_JWT)
+            const {email,userId,role}=<JwtPayload>verify(token,process.env.SECRET_KEY_JWT)
             const user=await this.userService.findUserByEmail(email)
             delete user.password;
-            const payload={email,userId,role,refreshToken}
+            const payload={email,userId,role}
             req.CurrentUser=payload
         }catch(err){
             console.log(err)

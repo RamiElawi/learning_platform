@@ -3,16 +3,17 @@ import { Lesson } from "./entities/lesson.entity";
 import { CreateLessonDto } from "./dto/create-lesson.dto";
 import dataSource from "db/dataSource";
 import { UpdateLessonDto } from "./dto/update-lesson.dto";
+import { LessonService } from "./lesson.service";
 
 @EntityRepository(Lesson)
 export class LessonRepository extends Repository<Lesson>{
     
-    async createLesson(createLessonDto:CreateLessonDto,subjectId:number){
+    async createLesson(createLessonDto:CreateLessonDto,subjectId:number,lessonNumber:number){
         return await dataSource
         .createQueryBuilder()
         .insert()
         .into(Lesson)
-        .values({...createLessonDto,subjectId:subjectId})
+        .values({...createLessonDto,subjectId:subjectId,lessonNumber:lessonNumber})
         .execute()
     }
 
@@ -50,4 +51,22 @@ export class LessonRepository extends Repository<Lesson>{
         .getOne()
     }
     
+
+    async getMaxNumber(subjectId:number){
+        return await dataSource
+        .getRepository(Lesson)
+        .createQueryBuilder('lesson')
+        .select('MAX(lesson.lessonNumber)','maxlessonnumber')
+        .where('lesson.subjectId = :subjectId' ,{subjectId:subjectId})
+        .getRawOne()
+    }
+
+    async getLessonGt(subjectId:number,lessonNumber:number){
+        return await dataSource
+        .getRepository(Lesson)
+        .createQueryBuilder('lesson')
+        .where('lesson.subjectId = :subjectId',{subjectId:subjectId})
+        .andWhere('lesson.lessonNumber > :lessonNumber',{lessonNumber:lessonNumber})
+        .getMany()
+    }
 }

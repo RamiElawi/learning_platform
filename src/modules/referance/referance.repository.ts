@@ -20,6 +20,7 @@ export class ReferanceRepository extends Repository<Referance>{
         .getRepository(Referance)
         .createQueryBuilder('referance')
         .where('referance.id = :referanceId',{referanceId:referanceId})
+        .leftJoinAndSelect('referance.user','user')
         .getOne()
     }
    
@@ -28,14 +29,16 @@ export class ReferanceRepository extends Repository<Referance>{
         return await dataSource
         .getRepository(Referance)
         .createQueryBuilder('referance')
-        .where('referance.name = :name',{name:name})
-        .getOne()
+        .where('referance.name LIKE :name',{name:`%${name}%`})
+        .leftJoinAndSelect('referance.user','user')
+        .getMany()
     }
 
     async findAllReferance(filterReferanceDto){
         return await dataSource
         .getRepository(Referance)
         .createQueryBuilder('Referance')
+        .leftJoinAndSelect('Referance.user','user')
         .limit(filterReferanceDto.limit)
         .offset(filterReferanceDto.skip)
         .getMany()

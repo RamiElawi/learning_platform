@@ -47,6 +47,7 @@ export class SubjectRepository extends Repository<Subject>{
         .getRepository(Subject)
         .createQueryBuilder('subject')
         .where('subject.id = :subId',{subId:subId})
+        // .leftJoinAndSelect('subject.lessons','lessons')
         .getOne()
     }
 

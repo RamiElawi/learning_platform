@@ -6,6 +6,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthorizeGuard } from 'src/common/guard/user_auth.guard';
 import { AuthorizeRoles } from 'src/common/decorator/authorize_role.decorator';
 import { roles } from 'src/common/enums/user_role.enum';
+import { CurrentUser } from 'src/common/decorator/currentUser.decorator';
+import { JwtPayload } from 'src/common/interfaces/jwt_payloda.interface';
 
 @ApiBearerAuth('accessToken')
 @ApiTags('lesson')
@@ -22,26 +24,27 @@ export class LessonController {
   }
 
   @Get('/:subjectId/getAllLesson')
-  async findAll(@Param('subjectId') subjectId:number) {
-    return await this.lessonService.findAll(subjectId);
+  async findAll(@Param('subjectId') subjectId:number,@CurrentUser() user) {
+    return await this.lessonService.findAll(subjectId,user.userId,user.role);
   }
 
   @Get('/getLesson/:id')
-  async findOne(@Param('id') id:number) {
-    return await this.lessonService.findOne(id);
+  async findOne(@Param('id') id:number,@CurrentUser()user) {
+    return await this.lessonService.findOne(id,user);
   }
 
   @AuthorizeRoles(roles.TEACHER,roles.ADMIN)
   @UseGuards(AuthorizeGuard)
   @Patch('/updateLesson/:id')
-  async update(@Param('id') id: number, @Body() updateLessonDto: UpdateLessonDto) {
-    return await this.lessonService.update(id, updateLessonDto);
+  async update(@Param('id') id: number, @Body() updateLessonDto: UpdateLessonDto,@CurrentUser() user:JwtPayload) {
+    return await this.lessonService.update(id, updateLessonDto,user);
   }
   
   @AuthorizeRoles(roles.TEACHER,roles.ADMIN)
   @UseGuards(AuthorizeGuard)
   @Delete('/deleteLesson/:id')
-  async remove(@Param('id') id: number) {
-    return await this.lessonService.remove(id);
+  async remove(@Param('id') id: number,@CurrentUser() user) {
+    console.log('46',user)
+    return await this.lessonService.remove(id,user);
   }
 }
