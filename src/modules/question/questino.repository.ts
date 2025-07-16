@@ -61,7 +61,7 @@ export class QuestionRepository extends Repository<Question>{
         .leftJoinAndSelect('question.answers','answer')
         .where('question.questionableId = :questionId',{questionId:questionId})
         .andWhere('question.questionableType = :questionType',{questionType:questionType})
-        .leftJoinAndSelect('answer.uanswer','userAnswer')
+        .leftJoin('answer.uanswer','userAnswer')
         .andWhere('userAnswer.userId = :userId',{userId:userId})
         .getMany()
     }
