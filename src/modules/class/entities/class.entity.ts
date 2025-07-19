@@ -10,8 +10,8 @@ export class Class {
     name:string;
     
 
-    @OneToMany(()=>User,user=>user.class,{eager:true})
-    users:User[]
+    // @OneToMany(()=>User,user=>user.class,{eager:true})
+    // users:User[]
 
     @OneToMany(()=>Subject,sub=>sub.class,{eager:true})
     subjects:Subject[]

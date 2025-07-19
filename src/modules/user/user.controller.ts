@@ -33,7 +33,8 @@ export class UserController {
   async getMe(@Req() req:Request){
     //@ts-ignore
     const userId=req.CurrentUser.userId
-    return await this.userSrevice.getMe(userId)
+    const user=await this.userSrevice.getMe(userId)
+    return user
   }
 
   @UseGuards(AuthorizeGuard)

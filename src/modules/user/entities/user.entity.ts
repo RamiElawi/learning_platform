@@ -38,10 +38,10 @@ export class User {
     timestamps:Date
 
 
-    @ManyToOne(()=>Class,clas=>clas.users,{onDelete:'SET NULL',onUpdate:'CASCADE'})
-    class:Class
-    @Column({nullable:true})
-    classId:number
+    // @ManyToOne(()=>Class,clas=>clas.users,{onDelete:'SET NULL',onUpdate:'CASCADE'})
+    // class:Class
+    // @Column({nullable:true})
+    // classId:number
 
     @OneToMany(()=>Mark,mark=>mark.user,{eager:true})
     marks:Mark[]

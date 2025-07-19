@@ -40,6 +40,7 @@ export class LessonRepository extends Repository<Lesson>{
         .getRepository(Lesson)
         .createQueryBuilder('lesson')
         .where('lesson.subjectId = :subjectId',{subjectId:subjectId})
+        .orderBy('lesson.lessonNumber','ASC')
         .getMany()
     }
 

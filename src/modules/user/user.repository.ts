@@ -72,10 +72,14 @@ export class UserRepository extends Repository<User>{
     async getMe(userId:number){
         return await dataSource
         .getRepository(User)
-        .createQueryBuilder('users')
-        .where('users.id = :userId',{userId})
+        .createQueryBuilder('user')
+        .where('user.id = :userId',{userId})
+        .leftJoinAndSelect('user.userSubject','usubjects')
+        .leftJoinAndSelect('usubjects.subject','subjects')
+        .leftJoinAndSelect('subjects.class','class')
         .getOne()
     }
+
 
     async logOut(userId:number){
         return await dataSource

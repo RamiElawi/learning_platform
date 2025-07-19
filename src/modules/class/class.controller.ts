@@ -25,12 +25,12 @@ export class ClassController {
     return this.classService.create(createClassDto);
   }
   
-  @AuthorizeRoles(roles.ADMIN)
-  @UseGuards(AuthorizeGuard)
-  @Patch('/addStudentToClass/:classId')
-  async addStudentToClass(@Body() addStudentDto:AddStudentDto,@Param('classId')classId:number){
-    return this.classService.addToClass(addStudentDto.userId,classId)
-  }
+  // @AuthorizeRoles(roles.ADMIN)
+  // @UseGuards(AuthorizeGuard)
+  // @Patch('/addStudentToClass/:classId')
+  // async addStudentToClass(@Body() addStudentDto:AddStudentDto,@Param('classId')classId:number){
+  //   return this.classService.addToClass(addStudentDto.userId,classId)
+  // }
 
   @Post('/getAllClass')
   async findAll(@Body() filterClassDto:FilterClassDto) {
