@@ -8,6 +8,9 @@ import { AuthorizeGuard } from 'src/common/guard/user_auth.guard';
 import { AuthorizeRoles } from 'src/common/decorator/authorize_role.decorator';
 import { roles } from 'src/common/enums/user_role.enum';
 import { ChangeRole } from './dto/changeRole.dto';
+import { ChangeImage } from './dto/changeImage.dto';
+import { JwtPayload } from 'src/common/interfaces/jwt_payloda.interface';
+import { CurrentUser } from 'src/common/decorator/currentUser.decorator';
 
 
 @ApiBearerAuth('accessToken')
@@ -49,5 +52,10 @@ export class UserController {
   @Patch('/changeRole')
   async changeRole(@Body() changeRoleDto:ChangeRole){
     return await this.userSrevice.update(changeRoleDto.userId,{role:changeRoleDto.role})
+  }
+
+  @Patch('/changeImage')
+  async changeImage(@Body() changeImage:ChangeImage,@CurrentUser() user:JwtPayload){
+    return await this.userSrevice.update(user.userId,{image:changeImage.image})
   }
 }

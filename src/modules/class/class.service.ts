@@ -19,13 +19,13 @@ export class ClassService {
     return await this.classRepo.createClass(createClassDto)
   }
 
-  async addToClass(userId:number,classId:number){
-    const user=await this.userService.findOne(userId)
-    if(user.role != roles.USER) throw new BadRequestException('you cann\'t add this user, It is not student')
-    await this.findOne(classId);
-    return await this.userService.update(userId,{classId:classId})
+  // async addToClass(userId:number,classId:number){
+  //   const user=await this.userService.findOne(userId)
+  //   if(user.role != roles.USER) throw new BadRequestException('you cann\'t add this user, It is not student')
+  //   await this.findOne(classId);
+  //   return await this.userService.update(userId,{classId:classId})
 
-  }
+  // }
 
   async findAll(filterClassDto:FilterClassDto) {
     let classes=await this.classRepo.findAllClasses(filterClassDto)

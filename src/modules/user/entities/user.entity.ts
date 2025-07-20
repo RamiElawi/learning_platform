@@ -26,8 +26,8 @@ export class User {
     role:roles;
     @Column({nullable:true})
     image:string;
-    @Column({nullable:true})
-    age:number;
+    @Column({nullable:true,type:'date'})
+    birthDate:string;
     @Column()
     phoneNumber:string;
     @Column({nullable:true})

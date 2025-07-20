@@ -1,8 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, IsStrongPassword, IsUrl, Length, Max, Min } from "class-validator";
+import { IsDate, IsDateString, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsString, IsStrongPassword, IsUrl, Length, Max, Min } from "class-validator";
 import { Match } from "../../../common/decorator/match.decorator";
 import { gender } from "../../../common/enums/user_gender.enum";
 import { roles } from "../../../common/enums/user_role.enum";
+import { Transform, Type } from "class-transformer";
 
 export class CreateUserDto {
     @IsNotEmpty()
@@ -53,17 +54,16 @@ export class CreateUserDto {
     
     //avater
     @ApiProperty()
-    @IsOptional()
-    @IsString()
-    @IsUrl({},{message:'image must be a valid URL'})
+    // @IsOptional()
+    // @IsString()
+    // @IsUrl({},{message:'image must be a valid URL'})
     image?:string
     
     //age
-    @ApiProperty()
-    @IsNumber({},{message:'age should be number'})
-    @Min(10,{message:'age should be greater more than 10'})
-    @Max(60,{message:'age should be less more than 60'})
-    age:number;
+    @ApiProperty({example:'2002-01-01'})
+    @IsNotEmpty({message:'this field is require'})
+    @IsDateString()
+    birthDate:string;
     
     //phone
     @ApiProperty({example:"+963982269417"})
