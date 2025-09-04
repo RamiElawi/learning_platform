@@ -2,15 +2,17 @@ import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LogInDto } from './dto/login.dto';
-import { comparePassword, encodePassword } from 'src/utils/bcrypt';
+import { comparePassword, encodePassword } from '../../utils/bcrypt';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { gender } from "../../common/enums/user_gender.enum";
 import { InjectRepository } from '@nestjs/typeorm';
-import { roles } from 'src/common/enums/user_role.enum';
+import { roles } from '../../common/enums/user_role.enum';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '../../common/interfaces/jwt_payloda.interface';
+import { config } from 'dotenv';
 
+config()
 
 @Injectable()
 export class UserService {
@@ -80,7 +82,7 @@ export class UserService {
   
     async loginDto(loginDto:LogInDto){
       const user=await this.findUserByEmail(loginDto.email)
-      console.log(user);
+      // console.log(user.role);
       const compare=await comparePassword(loginDto.password,user.password)
       if(!compare)
         throw new BadRequestException('unvalid request')
@@ -90,6 +92,9 @@ export class UserService {
       return {tokens};
     }
 
+    async find(email:string){
+      return await this.userRepo.findOneByEmail(email)
+    }
 
   async getTokens(userId: number, role:roles,email: string) {
     const jwtPayload: JwtPayload = {
@@ -102,6 +107,8 @@ export class UserService {
       secret:process.env.SECRET_KEY_JWT,
       expiresIn: process.env.EXPIRES_IN,
     })
+
+    // console.log(new Date(JSON.parse(atob(at.split('.')[1])).exp * 1000))
 
     return {
       access_token: at,

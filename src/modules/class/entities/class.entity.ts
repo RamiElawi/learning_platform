@@ -1,5 +1,5 @@
-import { Subject } from "src/modules/subject/entities/subject.entity";
-import { User } from "src/modules/user/entities/user.entity";
+import { Subject } from "../../../modules/subject/entities/subject.entity";
+import { User } from "../../../modules/user/entities/user.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('class')

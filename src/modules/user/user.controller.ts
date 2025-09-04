@@ -4,13 +4,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LogInDto } from './dto/login.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthorizeGuard } from 'src/common/guard/user_auth.guard';
-import { AuthorizeRoles } from 'src/common/decorator/authorize_role.decorator';
-import { roles } from 'src/common/enums/user_role.enum';
+import { AuthorizeGuard } from '../../common/guard/user_auth.guard';
+import { AuthorizeRoles } from '../../common/decorator/authorize_role.decorator';
+import { roles } from '../../common/enums/user_role.enum';
 import { ChangeRole } from './dto/changeRole.dto';
 import { ChangeImage } from './dto/changeImage.dto';
-import { JwtPayload } from 'src/common/interfaces/jwt_payloda.interface';
-import { CurrentUser } from 'src/common/decorator/currentUser.decorator';
+import { JwtPayload } from '../../common/interfaces/jwt_payloda.interface';
+import { CurrentUser } from '../../common/decorator/currentUser.decorator';
 
 
 @ApiBearerAuth('accessToken')

@@ -1,6 +1,6 @@
-import { Class } from "src/modules/class/entities/class.entity";
-import { Lesson } from "src/modules/lesson/entities/lesson.entity";
-import { Mark } from "src/modules/mark/entities/mark.entity";
+import { Class } from "../../../modules/class/entities/class.entity";
+import { Lesson } from "../../../modules/lesson/entities/lesson.entity";
+import { Mark } from "../../../modules/mark/entities/mark.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserSubject } from "./user_subject.entity";
 

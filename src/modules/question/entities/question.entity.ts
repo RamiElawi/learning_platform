@@ -1,5 +1,5 @@
-import { questionType } from "src/common/enums/question_type.enum";
-import { Answer } from "src/modules/answer/entities/answer.entity";
+import { questionType } from "../../../common/enums/question_type.enum";
+import { Answer } from "../../../modules/answer/entities/answer.entity";
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('question')

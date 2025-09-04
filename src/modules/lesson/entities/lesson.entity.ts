@@ -1,5 +1,5 @@
 
-import { Subject } from "src/modules/subject/entities/subject.entity";
+import { Subject } from "../../../modules/subject/entities/subject.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('lesson')

@@ -1,7 +1,7 @@
-import { MARKSTATE } from "src/common/enums/mark_state.enum";
-import { questionType } from "src/common/enums/question_type.enum";
-import { Subject } from "src/modules/subject/entities/subject.entity";
-import { User } from "src/modules/user/entities/user.entity";
+import { MARKSTATE } from "../../../common/enums/mark_state.enum";
+import { questionType } from "../../../common/enums/question_type.enum";
+import { Subject } from "../../../modules/subject/entities/subject.entity";
+import { User } from "../../../modules/user/entities/user.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('mark')

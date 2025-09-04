@@ -1,11 +1,11 @@
 import { isNotEmpty } from "class-validator";
-import { gender } from "src/common/enums/user_gender.enum";
-import { roles } from "src/common/enums/user_role.enum";
-import { User_Answer } from "src/modules/answer/entities/user_answer.entity";
-import { Class } from "src/modules/class/entities/class.entity";
-import { Mark } from "src/modules/mark/entities/mark.entity";
-import { Referance } from "src/modules/referance/entities/referance.entity";
-import { UserSubject } from "src/modules/subject/entities/user_subject.entity";
+import { gender } from "../../../common/enums/user_gender.enum";
+import { roles } from "../../../common/enums/user_role.enum";
+import { User_Answer } from "../../../modules/answer/entities/user_answer.entity";
+import { Class } from "../../../modules/class/entities/class.entity";
+import { Mark } from "../../../modules/mark/entities/mark.entity";
+import { Referance } from "../../../modules/referance/entities/referance.entity";
+import { UserSubject } from "../../../modules/subject/entities/user_subject.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('user')
